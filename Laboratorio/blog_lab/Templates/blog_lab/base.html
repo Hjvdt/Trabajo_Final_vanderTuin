@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        {% block titulo_head %}
+            <title></title>
+        {% endblock %}
+        <title>Inicio</title>
+        <link rel="icon" type="image/x-icon" href='/static/blog_lab/assets/favicon.ico' />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+        <link href="{% static 'blog_lab/css/styles.css' %}" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600&display=swap" rel="stylesheet">
+    </head>
+    <body style="position: relative; padding-bottom:50px; min-height: 100vh; text-align: center ;font-family: 'Source Serif Pro', serif;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark "  >
+            <div class="container px-lg-5">
+                {% if request.user.is_authenticated  %} 
+                    <img style="width: 30px; margin-right: 5px;" src="{{imagen}}" alt="">
+                    <li class="nav-item" style="color:white;list-style: none;" >{{user.username}} </li>
+                {% endif %}
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active " href="{% url 'inicio' %}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link active " href="{% url 'leerPublicacion' %}">Publicaciones</a></li>
+                        <li class="nav-item"><a class="nav-link active " href="{% url 'sobreMi' %}">Sobre nosotros</a></li>
+                        {% if not request.user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link active " href="{% url 'login' %}">Iniciar sesion</a></li>
+                        {% endif %}
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link active " href="{% url 'editarPerfil' %}">Perfil</a></li>
+                            <li class="nav-item"><a class="nav-link active " href="{% url 'agregar_Avatar' %}">Agregar Avatar</a></li>
+                            <li class="nav-item"><a class="nav-link active " href="{% url 'logout' %}">Salir</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main>
+            {% block main %}
+            {% endblock %}
+        </main>
+       
+        <footer style="position: absolute; width:100%; bottom:0 " class="py-2 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Created by &copy;hjvdt LABORATORIO_VDT </p></div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+{% extends "blog_lab/base.html" %}
+
+{% load static %}
+
+{% block titulo_head %}
+   <title>Publicaciones</title>
+{% endblock %}
+
+
+{% block main %}
+   <h3 style="margin-top:50px ;"> {{texto}} </h3>
+      {% for c in comentarios %}
+         <h3> {{c.comentario}} </h3>
+         <h3> {{c.disertante}} </h3>
+      {% endfor %} 
+{% endblock %}
+

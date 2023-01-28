@@ -1,0 +1,40 @@
+{% extends "blog_lab/base.html" %}
+
+{% load static %}
+
+{% block titulo_head %}
+   <title>Publicaciones</title>
+{% endblock %}
+
+
+{% block main %}
+   <div class="d-grid gap-2">
+      <a  class="btn btn-primary" href="{% url 'publicaciones' %}" > Crear post</a>
+   </div>
+   <h3 style="margin-top:50px ;"> {{texto}} </h3>
+      {% for p in publicaciones %}
+      <div style="padding-bottom: 20px; border-bottom: solid rgba(128, 128, 128, 0.548) 1px; width: 80%;margin-left:10%; padding: 10px;">
+         <div class="d-flex" style="align-items: center;">
+            <div class="card-body">
+               <h2 class="card-title">{{p.titulo}} </h2>
+               <h5 style="text-align: left;" class="card-title">{{p.subtitulo}} </h5>
+               <p style="text-align: left;" class="card-text">{{p.texto}} </p>
+               <div class="d-flex justify-content-center">
+                  <p class="card-text mx-5"><i> Publicado por: {{p.autor}} </i></p>
+                  <p class="card-text"><i> {{p.fecha}} </i></p>
+               </div>
+            </div>
+            <img src="/media/{{p.imagen}} " style="width: 400px;height: 310px; " class="card-img-top" alt="imagen de {{p.titulo}} ">
+         </div> 
+         {% if request.user.is_authenticated  %} 
+         <button class="btn-primary" style="padding: 5px; border-radius:20px" >
+            <a style=" color:white;text-decoration:none" href="{% url 'editarPublicacion' p.titulo %}">Editar</a>
+        </button>
+         <button class="btn btn-danger" style="padding: 5px; border-radius:20px" >
+            <a style=" color:white;text-decoration:none" href="{% url 'eliminarPublicacion' p.titulo %}">Eliminar</a>
+         </button>
+         {% endif %}
+      </div>
+      {% endfor %} 
+{% endblock %}
+

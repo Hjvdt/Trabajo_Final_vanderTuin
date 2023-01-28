@@ -1,0 +1,73 @@
+ {% extends "blog_lab/base.html" %}
+
+ {% load static %}
+
+ {% block titulo_head %}
+    <title>Inicio</title>
+ {% endblock %}
+
+ 
+ {% block main %}
+    
+   <div style="min-height: 92vh;padding: 10px;display: flex; align-items:center;justify-content: center;flex-wrap: wrap;">
+      <div>
+         <h1><b><i> Bienvenidos </b></i></h1>
+         <p> Este BLOG esta pensado como un apoyo para <br>  
+            l@s trabajodores del Laboratorio Clinico.  <br>
+            Es una Guía de consulta de determinaciones <br> 
+            del laboratorio, con el agregado de indicaciones, <br> 
+            y toda la informacion necesaria para realizar <br>
+            estudios de Laboratorio. <br> 
+            Para colaborar con informacion debes<a href="{% url 'registro' %}"> registrarte</a> (tambien para poder hacer consultas) </p>
+      </div>
+      <img width="40%" src="https://st2.depositphotos.com/1233599/5853/i/600/depositphotos_58531621-stock-photo-laboratory-technician-holding-a-blood.jpg" alt="">
+   </div>
+
+   <div style=" min-height: 100vh;color: white ;padding: 10px;background-color: rgb(40, 37, 37); " >
+      <h2 style="padding-top: 30px;" >Nuestra comunidad</h2>
+      <div style="display: flex;justify-content: space-around;padding-top: 20px;">
+         <div class="card" style="width: 18rem;height: 23rem; color: black;">
+            <img src="\media\photos\inicio1.jpg" class="card-img-top" alt="..."/>
+            <div class="card-body">
+              <h5 class="card-title">Compartí tus conocimientos</h5>
+              <a href="{% url 'publicaciones' %}" class="btn btn-primary">Hacer post</a>
+            </div>
+         </div>
+         <div class="card" style="width: 18rem;color: black;height: 23rem;">
+            <img src="/media/photos/inicio2.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Formá parte de la comunidad</h5>
+              <a href="{% url 'registro' %}" class="btn btn-primary">Registrate</a>
+            </div>
+         </div> 
+         <div class="card" style="width: 18rem;color: black;height: 23rem;">
+            <img src="/media/photos/inicio3.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Animate a dejarnos tu comentario</h5>
+              <a href="{% url 'comentarios' %}" class="btn btn-primary">Comentarios</a>
+            </div>
+         </div> 
+      </div>
+   </div>
+
+   <div style=" min-height: 100vh;color: black ;padding: 10px;background-color:white " >
+      <h2 style="padding-top: 30px;" >Comentarios</h2>
+      <h3 style="margin-top:50px ;"> {{texto}} </h3>
+      <div style="display: flex; justify-content:space-evenly;flex-wrap: wrap;">
+         {% for c in comentarios %}
+         <div class="card" style="width: 18rem;" >
+            <div class="card-body">
+               <h6 class="card-title" style="text-align: left;"> Comentario de: {{c.disertante}} </h6>
+               <p style="text-align: left;" class="card-title">{{c.comentario}} </p>
+               <p style="text-align: left;" class="card-text">{{c.fecha}} </p>
+            </div>
+         </div>
+         
+      {% endfor %}    
+      </div>
+      
+      
+   </div>
+   
+
+ {% endblock %}

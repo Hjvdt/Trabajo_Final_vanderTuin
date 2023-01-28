@@ -1,0 +1,24 @@
+{% extends "blog_lab/base.html" %}
+
+{% load static %}
+
+{% block titulo_head %}
+   <title>Publicaciones</title>
+{% endblock %}
+
+
+{% block main %}
+  <form  enctype="multipart/form-data"
+         action="{% url 'publicaciones' %}" 
+         method="POST"> {% csrf_token %}
+         <h1 style="padding: 20px;width:40%; margin-left:30%;border-bottom:solid 1px rgba(0, 0, 0, 0.374);">Nueva publicación</h1>
+         <div style="padding: 20px;display: flex;justify-content: center;">
+            <table>
+               {{form.as_table}}
+            </table>
+         </div>
+
+         <input type="submit" value="Publicar" class="btn-primary" style="border-radius: 20px;padding: 5px;">
+
+      </form>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "blog_lab/base.html" %}
+
+{% load static %}
+
+{% block titulo_head %}
+   <title>Editar usuario</title>
+{% endblock %}
+
+
+{% block main %}
+   <h1 style="padding: 20px;width:40%; margin-left:30%;border-bottom:solid 1px rgba(0, 0, 0, 0.374);" >Editar usuario {{usuario}} </h1>
+
+   <form action="{% url 'editarPerfil' %} " method="POST">
+    {% csrf_token %}
+
+    {{form.as_p}}
+    <button class="btn-primary" style="border-radius: 20px;padding: 5px;">
+        <a style="color: white;text-decoration:none" href="{% url 'agregar_Avatar' %}">Avatar</a>
+    </button>
+    <button class="btn-primary" style="border-radius: 20px;padding: 5px;" type="submit" >
+        Guardar cambios
+    </button>
+</form>
+
+{% endblock %}
