@@ -18,7 +18,7 @@
             <div class="card-body">
                <h2 class="card-title">{{p.titulo}} </h2>
                <h5 style="text-align: left;" class="card-title">{{p.subtitulo}} </h5>
-               <p style="text-align: left;" class="card-text">{{p.texto}} </p>
+               <p style="text-align: left;" class="card-text">{{p.texto|slice:":300"}} </p>
    
                <div class="d-flex justify-content-center">
                   <p class="card-text mx-5"><i> Publicado por: {{p.autor}} </i></p>

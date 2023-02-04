@@ -13,10 +13,7 @@ urlpatterns = [
     path('comentarios/', comentarios, name='comentarios'),
     path('publicaciones/', publicaciones, name='publicaciones'),
     path('pages/', leer_Publicaciones, name='leerPublicacion' ),
-    path('eliminarPublicacion/<publicacion_publicacion>/', eliminarPublicacion , name='eliminarPublicacion' ),
-    path('editarPublicacion/<publicacion_publicacion>/', editarPublicacion , name='editarPublicacion' ),    
+    path('eliminarPublicacion/<publicacion_id>/', eliminarPublicacion , name='eliminarPublicacion' ),
+    path('editarPublicacion/<publicacion_id>/', editarPublicacion , name='editarPublicacion' ),    
 ]
-
-    # URLS de Perfil
-   # path('editar-perfil/', ProfileUpdateView.as_view(), name="editar_perfil"),
- 
+   
