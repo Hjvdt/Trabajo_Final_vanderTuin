@@ -123,7 +123,7 @@ def publicaciones (request):
         nuevaPublicacion=FormPublicacion()
         return render (request, "blog_lab/publicaciones.html",{'form':nuevaPublicacion, 'usuario':request.user ,'imagen':traerAvatar(request) } )
 
-def leerPublicaciones (request):
+def leer_Publicaciones (request):
     publicaciones = Publicacion.objects.all()
     texto='No hay publicaciones para ver.'
     if publicaciones:
@@ -173,7 +173,7 @@ def editarPublicacion (request, publicacion_publicacion):
 @login_required
 def agregar_Avatar(request):
     if request.method == "POST":
-        formulario = AvatarForm(request.POST, request.FILES) 
+        formulario = AvatarForm(request.POST, request.FILES, instance=request.user.avatar) 
         if formulario.is_valid():
             #avatar=Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
             avatar=formulario.save()
@@ -183,7 +183,7 @@ def agregar_Avatar(request):
             return redirect(url_exitosa)
             #return render (request, 'blog_lab/inicio.html',{'usuario':request.user})
     else:
-        formulario=AvatarForm()
+        formulario=AvatarForm(instance=request.user.avatar)
     return render(
         request=request, 
         template_name='blog_lab/formulario_Avatar.html',

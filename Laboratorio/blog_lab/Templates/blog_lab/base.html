@@ -27,14 +27,26 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active " href="{% url 'inicio' %}">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link active " href="{% url 'leerPublicacion' %}">Publicaciones</a></li>
-                        <li class="nav-item"><a class="nav-link active " href="{% url 'sobreMi' %}">Sobre nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link active " href="{% url 'sobreMi' %}">Sobre Mi</a></li>
                         {% if not request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link active " href="{% url 'login' %}">Iniciar sesion</a></li>
                         {% endif %}
                         {% if request.user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link active " href="{% url 'editarPerfil' %}">Perfil</a></li>
-                            <li class="nav-item"><a class="nav-link active " href="{% url 'agregar_Avatar' %}">Agregar Avatar</a></li>
-                            <li class="nav-item"><a class="nav-link active " href="{% url 'logout' %}">Salir</a></li>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div style="display: inline-flex;">
+                                    <span style="padding: 0px 30px 0px 0px;">{{ user.username }}</span>
+                                    <div>
+                                        <img src="{{ user.avatar.imagen.url }}" style="width:50px;"/>
+                                    </div>
+                                </div>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="{% url 'editarPerfil' %}">Editar mis datos</a></li>
+                                <li><a class="dropdown-item" href="{% url 'agregar_Avatar' %}">Agregar Avatar</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Salir</a></li>
+                            </ul>
+                        </div>
                         {% endif %}
                     </ul>
                 </div>
