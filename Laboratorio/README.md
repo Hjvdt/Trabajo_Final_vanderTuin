@@ -12,6 +12,9 @@
 pip install -r requirements.txt
 ```
 
+Instalar Visual Studio Code o corres desde consola de python 
+En la carpeta /Laboratorio/python manage.py runserver 
+
 ## Instrucciones para entrar al panel aministrativo de Django
 + En consola, crear un superuser:
 ```

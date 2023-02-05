@@ -10,22 +10,14 @@
 
 {% block main %} 
 
-  {% if blog_lab_user.id == blog_lab_publicacion.autor_id  %}
-    
-    <h1>Editar Post</h1>
+  <h1>Editar Post</h1>
       
-    <form action="{% url 'editarPublicacion' publicacion_id %}" method="POST" enctype="multipart/form-data"  > 
-      {% csrf_token %}
-      <table>
-        {{form.as_table}}
-      </table>
-      <input type="submit" value="Guardar cambios">
-    </form>
-  
-  {% else %}
-    <p>
-    <h1>No puede editar esta publicacion porque no es el autor de la misma</h1> <br> <br>
-    <a href="{% url 'leerPublicacion' %}" class="btn btn-secondary">Volver</a>
-  {% endif %}
+  <form action="{% url 'editarPublicacion' publicacion_id %}" method="POST" enctype="multipart/form-data"  > 
+    {% csrf_token %}
+    <table>
+      {{form.as_table}}
+    </table>
+    <input type="submit" value="Guardar cambios">
+  </form>
 
 {% endblock main %}

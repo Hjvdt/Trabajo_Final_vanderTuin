@@ -11,7 +11,8 @@ from django.template import Context, Template,loader
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView
+from django.views.generic.edit import UpdateView
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -110,6 +111,7 @@ def sobreMi (request):
     return render (request, "blog_lab/sobreMi.html",{'imagen':traerAvatar(request)} )
 
 # Publicacion del Blog
+
 @login_required
 def publicaciones (request):
     if request.method == "POST":
@@ -134,14 +136,6 @@ def publicaciones (request):
         nuevaPublicacion=FormPublicacion()
         return render (request, "blog_lab/publicaciones.html",{'form':nuevaPublicacion, 'usuario':request.user ,'imagen':traerAvatar(request) } )
 
-def leer_Publicaciones (request):
-    publicaciones = Publicacion.objects.all()
-    texto='No hay publicaciones para ver.'
-    if publicaciones:
-        return render (request, 'blog_lab/leerPublicacion.html', {'publicaciones': publicaciones,'imagen':traerAvatar(request)})
-    return render (request, 'blog_lab/leerPublicacion.html', {'texto':texto ,'imagen':traerAvatar(request)})
-
-
 @login_required
 def editarPublicacion (request, publicacion_id):
     publicacion = Publicacion.objects.get(titulo=publicacion_id)
@@ -163,10 +157,10 @@ def editarPublicacion (request, publicacion_id):
         'subtitulo':publicacion.subtitulo,'texto':publicacion.texto,'imagen':publicacion.imagen})  
     return render(request, "blog_lab/editarPublicacion.html",
     {'form':form,'publicacion_id':publicacion_id})
-
+   
 @login_required
-def eliminarPublicacion (request, publicacion_publicacion):
-    publicacion = Publicacion.objects.get(titulo=publicacion_publicacion)
+def eliminarPublicacion (request, publicacion_id):
+    publicacion = Publicacion.objects.get(titulo=publicacion_id)
     publicacion.delete()
 
     publicaciones = Publicacion.objects.all()
@@ -174,6 +168,12 @@ def eliminarPublicacion (request, publicacion_publicacion):
 
     return render( request, 'blog_lab/leerPublicacion.html', context )
 
+def leer_Publicaciones (request):
+    publicaciones = Publicacion.objects.all()
+    texto='No hay publicaciones para ver.'
+    if publicaciones:
+        return render (request, 'blog_lab/leerPublicacion.html', {'publicaciones': publicaciones,'imagen':traerAvatar(request)})
+    return render (request, 'blog_lab/leerPublicacion.html', {'texto':texto ,'imagen':traerAvatar(request)})
 
 
 # Comentarios
