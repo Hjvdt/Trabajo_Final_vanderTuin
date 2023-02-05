@@ -144,10 +144,10 @@ def publicaciones (request):
             publicacion=Publicacion(titulo=titulo,subtitulo=subtitulo,autor=user,
             texto=texto,imagen=imagen)
             publicacion.save()
-            return render(request, "blog_lab/inicio.html",{'usuario':request.user} )
+            return render(request, "blog_lab/publicaciones.html",{'usuario':request.user} )
         else:
             print(nuevaPublicacion.errors)
-            return render(request, "blog_lab/inicio.html")
+            return render(request, "blog_lab/publicaciones.html")
     else:
         nuevaPublicacion=FormPublicacion()
         return render (request, "blog_lab/publicaciones.html",{'form':nuevaPublicacion, 'usuario':request.user ,'imagen':traerAvatar(request) } )
@@ -171,18 +171,19 @@ def editarPublicacion (request, publicacion_id):
     else: 
         form=FormPublicacion(initial={'titulo': publicacion.titulo,
         'subtitulo':publicacion.subtitulo,'texto':publicacion.texto,'imagen':publicacion.imagen})  
-    return render(request, "blog_lab/editarPublicacion.html",
-    {'form':form,'publicacion_id':publicacion_id})
+        return render (request, "blog_lab/publicaciones.html",{'form':FormPublicacion, 'usuario':request.user ,'imagen':traerAvatar(request) } )
    
 @login_required
 def eliminarPublicacion (request, publicacion_id):
     publicacion = Publicacion.objects.get(titulo=publicacion_id)
-    publicacion.delete()
+    if request.method == "POST":
+        publicacion.delete()
+        url_exitosa = reverse('listar_cursos')
+        url_exitosa = reverse('blog_lab/leerPublicacion.html')
+        return redirect(url_exitosa)
+    
 
-    publicaciones = Publicacion.objects.all()
-    context = {'publicaciones': publicaciones}
 
-    return render( request, 'blog_lab/leerPublicacion.html', context )
 
 def leer_Publicaciones (request):
     publicaciones = Publicacion.objects.all()

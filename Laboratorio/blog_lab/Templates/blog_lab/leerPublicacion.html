@@ -34,6 +34,9 @@
          <button class="btn btn-danger" style="padding: 5px; border-radius:20px" >
             <a style=" color:white;text-decoration:none" href="{% url 'eliminarPublicacion' p.titulo %}">Eliminar</a>
          </button>
+         {% else %}
+            <h2>No tiene permitida esta accion en publicaciones de otros usuarios<h2>
+            <input type="button" onclick="history.back()" name="volver atrás" value="volver atrás">
          {% endif %}
       </div>
       {% endfor %} 
