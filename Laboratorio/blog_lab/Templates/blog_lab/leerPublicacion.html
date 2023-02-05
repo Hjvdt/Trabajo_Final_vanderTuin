@@ -27,17 +27,13 @@
             </div>
             <img src="/media/{{p.imagen}} " style="width: 400px;height: 310px; " class="card-img-top" alt="imagen de {{p.titulo}} ">
          </div> 
-         {% if request.user.is_authenticated or user.id == publicacion.autor_id %} 
+         {% if request.user.is_authenticated %} 
          <button class="btn-primary" style="padding: 5px; border-radius:20px" >
             <a style=" color:white;text-decoration:none" href="{% url 'editarPublicacion' p.titulo %}">Editar</a>
-        </button>
+         </button>
          <button class="btn btn-danger" style="padding: 5px; border-radius:20px" >
             <a style=" color:white;text-decoration:none" href="{% url 'eliminarPublicacion' p.titulo %}">Eliminar</a>
          </button>
-         {% else %}
-            <br>
-            <h1>No estas autorizado a editar/borrar el post</h1>
-            <a  class="btn btn-primary" href="{% url 'leerPublicacion' %}" >Volver</a>
          {% endif %}
       </div>
       {% endfor %} 

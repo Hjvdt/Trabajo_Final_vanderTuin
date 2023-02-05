@@ -73,24 +73,40 @@ def editarPerfil(request):
         form=UserEditForm(request.POST)
     return render (request, 'blog_lab/editarUser.html', {'form':form,'usuario':usuario, 'imagen':traerAvatar(request) })
 
+#def agregar_Avatar(request):
+#    if request.method == "POST":
+#        formulario = AvatarForm(request.POST, request.FILES, instance=request.user.avatar) 
+#        if formulario.is_valid():
+#            avatar=Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
+#            avatar=formulario.save()
+#            avatar.user=request.user
+#            avatar.save()
+#            url_exitosa=reverse_lazy('inicio')
+#            return redirect(url_exitosa)            
+#    else:
+#        formulario=AvatarForm(instance=request.user.avatar)
+#    return render(
+#        request=request, 
+#        template_name='blog_lab/formulario_Avatar.html',
+#        context={'formulario':formulario,'usuario':request.user} )
 @login_required
 def agregar_Avatar(request):
     if request.method == "POST":
-        formulario = AvatarForm(request.POST, request.FILES, instance=request.user.avatar) 
+        formulario = AvatarForm(request.POST, request.FILES)
+
         if formulario.is_valid():
-            #avatar=Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
-            avatar=formulario.save()
-            avatar.user=request.user
+            avatar = formulario.save()
+            avatar.user = request.user
             avatar.save()
-            url_exitosa=reverse_lazy('inicio')
+            url_exitosa = reverse('inicio')
             return redirect(url_exitosa)
-            
     else:
-        formulario=AvatarForm(instance=request.user.avatar)
+        formulario = AvatarForm()
     return render(
-        request=request, 
+        request=request,
         template_name='blog_lab/formulario_Avatar.html',
-        context={'formulario':formulario,'usuario':request.user} )
+        context={'formulario':formulario,'usuario':request.user}
+    )
 
 
 @login_required
