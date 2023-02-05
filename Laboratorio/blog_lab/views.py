@@ -165,8 +165,8 @@ def editarPublicacion (request, publicacion_id):
             publicacion.texto = info['texto']
             if info['imagen']:
                 publicacion.imagen = info['imagen']
-            publicacion.save()
-            publicaciones=Publicacion.objects.all()
+                publicacion.save()
+                publicaciones=Publicacion.objects.all()
             return render (request,"blog_lab/leerPublicacion.html",{'publicaciones':publicaciones})
     else: 
         form=FormPublicacion(initial={'titulo': publicacion.titulo,
