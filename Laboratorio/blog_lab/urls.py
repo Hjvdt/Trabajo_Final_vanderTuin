@@ -1,6 +1,9 @@
 from django.urls import path
 from blog_lab.views import *
 from django.contrib.auth.views import LogoutView, LoginView
+from django.views.generic.edit import DeleteView
+from blog_lab import views
+
 
 urlpatterns = [
     path('login/', login_request, name='login'),
@@ -13,7 +16,7 @@ urlpatterns = [
     path('comentarios/', comentarios, name='comentarios'),
     path('publicaciones/', publicaciones, name='publicaciones'),
     path('pages/', leer_Publicaciones, name='leerPublicacion' ),
-    path('eliminarPublicacion/<publicacion_id>/', eliminarPublicacion , name='eliminarPublicacion' ),
-    path('editarPublicacion/<publicacion_id>/', editarPublicacion , name='editarPublicacion' ),    
+    path('eliminarPublicacion/<publicacion_publicacion>/', views.eliminarPublicacion , name='eliminarPublicacion' ),
+    path('editarPublicacion/<publicacion_publicacion>/', views.editarPublicacion , name='editarPublicacion' ),    
 ]
    

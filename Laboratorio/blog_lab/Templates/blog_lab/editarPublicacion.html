@@ -7,9 +7,7 @@
   <title>Editar publicacion</title>
 {% endblock %}
 
-
 {% block main %} 
-
   <h1>Editar Post</h1>
       
   <form action="{% url 'editarPublicacion' publicacion.id %}" method="POST" enctype="multipart/form-data"  > 
@@ -21,3 +19,5 @@
   </form>
 
 {% endblock main %}
+
+

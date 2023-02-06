@@ -12,7 +12,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 
 from django.views.generic import CreateView, UpdateView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -73,22 +73,7 @@ def editarPerfil(request):
         form=UserEditForm(request.POST)
     return render (request, 'blog_lab/editarUser.html', {'form':form,'usuario':usuario, 'imagen':traerAvatar(request) })
 
-#def agregar_Avatar(request):
-#    if request.method == "POST":
-#        formulario = AvatarForm(request.POST, request.FILES, instance=request.user.avatar) 
-#        if formulario.is_valid():
-#            avatar=Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
-#            avatar=formulario.save()
-#            avatar.user=request.user
-#            avatar.save()
-#            url_exitosa=reverse_lazy('inicio')
-#            return redirect(url_exitosa)            
-#    else:
-#        formulario=AvatarForm(instance=request.user.avatar)
-#    return render(
-#        request=request, 
-#        template_name='blog_lab/formulario_Avatar.html',
-#        context={'formulario':formulario,'usuario':request.user} )
+
 @login_required
 def agregar_Avatar(request):
     if request.method == "POST":
@@ -153,11 +138,11 @@ def publicaciones (request):
         return render (request, "blog_lab/publicaciones.html",{'form':nuevaPublicacion, 'usuario':request.user ,'imagen':traerAvatar(request) } )
 
 @login_required
-def editarPublicacion (request, publicacion_id):
-    publicacion = Publicacion.objects.get(titulo=publicacion_id)
+def editarPublicacion (request, publicacion_publicacion):
+    publicacion = Publicacion.objects.get(titulo = publicacion_publicacion)
      
     if request.method =='POST':
-        form=FormPublicacion(request.POST,request.FILES)
+        form=FormPublicacion(request.POST)
         if form.is_valid():
             info=form.cleaned_data
             publicacion.titulo = info['titulo']
@@ -166,23 +151,28 @@ def editarPublicacion (request, publicacion_id):
             if info['imagen']:
                 publicacion.imagen = info['imagen']
                 publicacion.save()
-                publicaciones=Publicacion.objects.all()
-            return render (request,"blog_lab/leerPublicacion.html",{'publicaciones':publicaciones})
+               # publicaciones=Publicacion.objects.all()
+            return render (request,"blog_lab/leerPublicacion.html")
+        return render (request,"blog_lab/leerPublicacion.html")
     else: 
         form=FormPublicacion(initial={'titulo': publicacion.titulo,
         'subtitulo':publicacion.subtitulo,'texto':publicacion.texto,'imagen':publicacion.imagen})  
         return render (request, "blog_lab/publicaciones.html",{'form':FormPublicacion, 'usuario':request.user ,'imagen':traerAvatar(request) } )
-   
-@login_required
-def eliminarPublicacion (request, publicacion_id):
-    publicacion = Publicacion.objects.get(titulo=publicacion_id)
-    if request.method == "POST":
-        publicacion.delete()
-        url_exitosa = reverse('listar_cursos')
-        url_exitosa = reverse('blog_lab/leerPublicacion.html')
-        return redirect(url_exitosa)
-    
 
+
+
+@login_required
+def eliminarPublicacion(request, publicacion_publicacion):
+
+      publicacion = Publicacion.objects.get(titulo=publicacion_publicacion)
+      publicacion.delete()
+      
+      #vuelvo al menú
+      publicaciones = Publicacion.objects.all() #trae todos los profesores
+
+      contexto= {"publicaciones":publicacion} 
+
+      return render(request, "blog_lab/leerPublicacion.html",contexto)
 
 
 def leer_Publicaciones (request):

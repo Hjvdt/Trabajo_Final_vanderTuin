@@ -1,13 +1,13 @@
 {% extends "blog_lab/base.htmll" %}
 
 {% block contenido %}
-<span>Vas a elimiminar la siguiente publicacion: {{object}}</span>
+    <span>Vas a elimiminar la siguiente publicacion: {{object}}</span>
 
-<form method="post">
-    {% csrf_token %}
-    {{formulario.as_p}}
-    <input type="submit" value="Confirmar">
-</form>
+    <form method="post">
+        {% csrf_token %}
+        {{formulario.as_p}}
+        <input type="submit" value="Confirmar">
+    </form>
 
-<a href="{% url 'publicaciones' %}">Volver a las publicaciones</a>
+    <a href="{% url 'publicaciones' %}">Volver a las publicaciones</a>
 {% endblock contenido %}
